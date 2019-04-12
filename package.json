@@ -1,0 +1,29 @@
+{
+	"name": "node-auth-sample",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node app.js",
+		"start:dev": "nodemon app.js",
+		"start:dev:debug": "nodemon --inspect app.js"
+	},
+	"author": "Fabio Valenti",
+	"dependencies": {
+		"bcrypt": "^3.0.5",
+		"body-parser": "^1.18.2",
+		"cfenv": "^1.2.2",
+		"dotenv": "^7.0.0",
+		"express": "^4.16.4",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.5.0",
+		"mongoose-geojson-schema": "^2.1.2",
+		"morgan": "^1.9.1"
+	},
+	"repository": {},
+	"engines": {
+		"node": "10.x"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.11"
+	}
+}
