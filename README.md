@@ -5,9 +5,11 @@ This application demonstrates a simple, reusable Node.js web application based o
 ## Run the app locally
 
 1. [Install Node.js][]
-1. cd into this project's root directory
+1. Provide a local [MongoDB][] instance without authentication (or else change insternal configuration as needed)
+1. `cd` into this project's root directory
 1. Run `npm install` to install the app's dependencies
 1. Run `npm start` to start the app
 1. Access the running app (if no configuration is provided) in a browser at <http://localhost:9443>
 
 [Install Node.js]: https://nodejs.org/en/download/
+[MongoDB]: https://www.mongodb.com
