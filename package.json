@@ -9,13 +9,13 @@
 	},
 	"author": "Fabio Valenti",
 	"dependencies": {
-		"bcrypt": "^3.0.5",
+		"bcrypt": "^3.0.6",
 		"body-parser": "^1.18.2",
 		"cfenv": "^1.2.2",
 		"dotenv": "^7.0.0",
 		"express": "^4.16.4",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.5.0",
+		"mongoose": "^5.5.1",
 		"mongoose-geojson-schema": "^2.1.2",
 		"morgan": "^1.9.1"
 	},
