@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+
 const { WellKnownJsonRes } = require('../middleware/json-response-util');
+const jwtKey = require('../lib/util/jwt-key');
 
 module.exports = (req, res, next) => {
 	try {
 		const token = req.headers.authorization.split(' ')[1];
-		const jwtKey = process.env.JWT_KEY || 'sample_fake_key';
-		const decoded = jwt.verify(token, jwtKey);
+		const decoded = jwt.verify(token, jwtKey());
 		req.userData = decoded;
 		next();
 	} catch (e) {

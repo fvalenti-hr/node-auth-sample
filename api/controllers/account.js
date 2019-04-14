@@ -8,6 +8,8 @@ const AccountDetailCtrl = require('../controllers/accountDetail');
 
 const { WellKnownJsonRes, JsonResWriter } = require('../middleware/json-response-util');
 
+const jwtKey = require('../lib/util/jwt-key');
+
 // Crud
 exports.create = (req, res, next) => {
 	Account.countDocuments({
@@ -83,7 +85,7 @@ exports.login = (req, res, next) => {
 		.then((account) => {
 			if (!account) {
 				WellKnownJsonRes.unauthorized(res, [ 'Auth failed' ], {
-					message: 'no account available as per request'
+					message: 'no account available'
 				});
 				return res;
 			}
@@ -96,14 +98,13 @@ exports.login = (req, res, next) => {
 					return res;
 				}
 				if (secretCompareSucceded) {
-					const jwtKey = process.env.JWT_KEY || 'sample_fake_key';
 					const token = jwt.sign(
 						{
 							_id: account._id,
 							username: account.username,
 							registration_email: account.registration_email
 						},
-						jwtKey,
+						jwtKey(),
 						{
 							expiresIn: 3600
 						}
@@ -132,7 +133,7 @@ exports.login_refresh = (req, res, next) => {
 		.then((account) => {
 			if (!account) {
 				WellKnownJsonRes.unauthorized(res, [ 'Refresh token failed' ], {
-					message: 'no account available as per request'
+					message: 'invalid token'
 				});
 				return res;
 			}
@@ -143,7 +144,7 @@ exports.login_refresh = (req, res, next) => {
 					username: account.username,
 					registration_email: account.registration_email
 				},
-				process.env.JWT_KEY,
+				jwtKey(),
 				{
 					expiresIn: 3600
 				}
@@ -153,6 +154,7 @@ exports.login_refresh = (req, res, next) => {
 				._messages([ 'Auth succeeded for ' + req.body.username ])
 				._add('token', token)
 				.applyTo(res);
+			return res;
 		})
 		.catch((readError) => {
 			WellKnownJsonRes.errorDebug(res, readError);
@@ -163,7 +165,7 @@ exports.login_refresh = (req, res, next) => {
 exports.oblivion = (req, res, next) => {
 	const id = req.userData._id;
 
-	Account.remove({
+	Account.deleteOne({
 		_id: id
 	})
 		.exec()

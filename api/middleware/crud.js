@@ -133,7 +133,7 @@ class BasicWrite {
 		};
 
 		model
-			.update(updateFilter, updateStatement)
+			.updateOne(updateFilter, updateStatement)
 			.exec()
 			.then((updateResult) => {
 				WellKnownJsonRes.okSingle(res, updateFilter, 200, updateResult);
@@ -146,7 +146,7 @@ class BasicWrite {
 	// cruD/byId
 	static deleteById(req, res, next, model, id) {
 		model
-			.remove({
+			.deleteOne({
 				_id: id
 			})
 			.exec()
